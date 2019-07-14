@@ -112,6 +112,7 @@ export default class SortableGridview extends Component {
       const nextData = [...nextProps.data];
       let data = []
       if (preDataLength < nextData.length) {
+        this.moveAnimate = true;
         data = nextData;
       } else {
         nextData.splice(0, preDataLength);
@@ -267,15 +268,17 @@ export default class SortableGridview extends Component {
     const perWidth = (width - ((numPerRow - 1) * gapWidth) - paddingHorizontal * 2) / numPerRow;
     const perHeight = perWidth * aspectRatio;
     const contentHeight = (perHeight * rowCount) + (rowCount - 1) * gapWidth;
-
-    allData.map((item, index) => {
-      const row = Math.floor(index / numPerRow);
-      const column = index % numPerRow;
-      this.positions[index] = {
-        x: paddingHorizontal + perWidth * column + column * gapWidth,
-        y: paddingVertical+ perHeight * row + row * gapWidth,
-      }
-    });
+    if (this.positions.length !== allData.length) {
+      this.positions = [];
+      allData.map((item, index) => {
+        const row = Math.floor(index / numPerRow);
+        const column = index % numPerRow;
+        this.positions[index] = {
+          x: paddingHorizontal + perWidth * column + column * gapWidth,
+          y: paddingVertical+ perHeight * row + row * gapWidth,
+        }
+      });
+    }
 
     this.setState({
       containerOnMount: true,
@@ -370,9 +373,12 @@ export default class SortableGridview extends Component {
               const customTap = content.props.onTap ? content.props.onTap : () => {};
               const key = content.props.uniqueKey || index;
               
-              if (!this[`moveAnimate${key}`]) {
+              if (!this[`moveAnimate${key}`] || this.moveAnimate) {
                 this[`moveAnimate${key}`] = new Animated.ValueXY(this.positions[index]);
                 this.animateArray[index] = this[`moveAnimate${key}`]
+                if (this.state.data.length - 1 === index) {
+                  this.moveAnimate = false;
+                }
               }
               return [
                 <Animated.View
