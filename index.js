@@ -111,7 +111,7 @@ export default class SortableGridview extends Component {
       const preDataLength = this.props.data.length;
       const nextData = [...nextProps.data];
       let data = []
-      if (preDataLength < nextData.length) {
+      if (preDataLength > nextData.length) {
         this.moveAnimate = true;
         data = nextData;
       } else {
