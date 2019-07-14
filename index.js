@@ -16,7 +16,7 @@ const aspectRatio = 1;
 const gapWidth = 16;
 const paddingVertical = 16;
 const paddingHorizontal = 16;
-const sensitivity = 300;
+const sensitivity = 150;
 const selectAnimation = 'scale'; // scale, shake
 const selectStyle = {
   shadowColor: '#000',
@@ -188,14 +188,16 @@ export default class SortableGridview extends Component {
         this[`selectAnimation${this.currentAnchorKey}`], // The value to drive
         this.state.customAnimation.endTimingOption,
       ),
-    ]).start(() => {
+    ]).start((data) => {
       this.setState({
         data: this.data,
         selectIndex: null,
+      }, () => {
+        this.props.onDragRelease && this.props.onDragRelease(this.data);
+        this.positionIndex = null;
+        this.currentAnchor = null;
       });
-      this.props.onDragRelease && this.props.onDragRelease(this.data);
-      this.positionIndex = null;
-      this.currentAnchor = null;
+      
     });
   };
 
@@ -249,7 +251,7 @@ export default class SortableGridview extends Component {
               x: this.positions[index].x,
               y: this.positions[index].y,
             },
-            duration: 150,
+            duration: 250,
           },
         )
       )
@@ -299,13 +301,12 @@ export default class SortableGridview extends Component {
     if (this.state.selectAnimation === 'none') {
       return {};
     }
-
-    if (this.state.customAnimation && this.state.customAnimation.style) {
-      return this.state.customAnimation.style();
-    }
     
     if (!this[`selectAnimation${key}`]) {
       this[`selectAnimation${key}`] = new Animated.Value(0);
+    }
+    if (this.state.customAnimation && this.state.customAnimation.style) {
+      return this.state.customAnimation.style(this[`selectAnimation${key}`]);
     }
     if (this.state.selectAnimation === 'scale') {
       let onSelectScaleAnimation = {}
@@ -387,13 +388,16 @@ export default class SortableGridview extends Component {
                   style={[
                     styles.absolute,
                     {height: this.state.perHeight, width: this.state.perWidth, zIndex: this.state.selectIndex === index ? 10 : 1, ...selectStyle, ...this._getAnimation(key)},
-                    {left: this[`moveAnimate${key}`].x, top: this[`moveAnimate${key}`].y}
+                    // {left: this[`moveAnimate${key}`].x, top: this[`moveAnimate${key}`].y}
+                    this[`moveAnimate${key}`].getLayout(),
                   ]}
                 >
                   <TouchableWithoutFeedback style={styles.flex}
                     delayLongPress={200}
                     onLongPress={this._onLongPressItems(key, index)}
-                    onPress={customTap}
+                    onPress={() => {
+                      customTap(item, index);
+                    }}
                   >
                     <View style={styles.fullScreen}>
                       {content}
@@ -406,7 +410,8 @@ export default class SortableGridview extends Component {
                     style={[
                       styles.absolute,
                       {zIndex: this.state.selectIndex === index ? 10 : 1, ...itemCoverStyle, ...selectStyle, ...this._getAnimation(key)},
-                      {left: this[`moveAnimate${key}`].x, top: this[`moveAnimate${key}`].y}
+                      // {left: this[`moveAnimate${key}`].x, top: this[`moveAnimate${key}`].y}
+                      this[`moveAnimate${key}`].getLayout(),
                     ]}
                   >
                     {this.props.renderItemCover(item, index)}
