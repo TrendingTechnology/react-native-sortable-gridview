@@ -99,13 +99,13 @@ export default class SortableGridview extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      !isEqual(this.props.data, nextProps.data) &&
-      nextProps.numPerRow !== this.props.numPerRow &&
-      nextProps.aspectRatio !== this.props.aspectRatio &&
-      nextProps.gapWidth !== this.props.gapWidth &&
-      nextProps.paddingVertical !== this.props.paddingVertical &&
-      nextProps.paddingHorizontal !== this.props.paddingHorizontal &&
-      nextProps.selectStyle !== this.props.selectStyle &&
+      !isEqual(this.props.data, nextProps.data) ||
+      nextProps.numPerRow !== this.props.numPerRow ||
+      nextProps.aspectRatio !== this.props.aspectRatio ||
+      nextProps.gapWidth !== this.props.gapWidth ||
+      nextProps.paddingVertical !== this.props.paddingVertical ||
+      nextProps.paddingHorizontal !== this.props.paddingHorizontal ||
+      nextProps.selectStyle !== this.props.selectStyle ||
       nextProps.sensitivity !== this.props.sensitivity
     ) {
       const preDataLength = this.props.data.length;
@@ -117,6 +117,8 @@ export default class SortableGridview extends Component {
         nextData.splice(0, preDataLength);
         data = [...this.state.data, ...nextData];
       }
+
+      this.data = data;
       
       this.setState({
         ...this.state,
@@ -286,7 +288,6 @@ export default class SortableGridview extends Component {
         width: '100%',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        backgroundColor: 'red',
       },
     });
   }
