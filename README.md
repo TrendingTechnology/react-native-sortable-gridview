@@ -123,17 +123,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 |**`paddingHorizontal`**|Number|Container's paddingHorizontal. |`16`|
 |**`sensitivity`**|Number|Detection time, while user moving the item.  |`150 (milisecond)`|
 |**`selectAnimation`**|String|The animation when user begin to drag. Valid values: `none`, `scale`, `shake`.  |`scale`|
-|**`selectStyle`**|Object|Add some style to dragging item. |```{
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: 0,
-  },
-  shadowOpacity: 0.25,
-  shadowRadius: 3.84,
-
-  elevation: 5,
-}```|
+|**`selectStyle`**|Object|Add some style to dragging item. |`shadow style`|
 |**`customAnimation`**|Object|The way to custom select animation. There have three flag in customAnimation, startTimingOption, endTimingOption and style (function). startTimingOption and endTimingOption can set Animated.timing's option, and style is the function that you can set animation interpolate and return animated style. |*None*|
 |**`onDragStart`**|Function|When user start to drag item, this function will be trigger. |*None*|
 |**`onDragRelease`**|Function|When user drog item, this function will be trigger. The has two params can be use in callback, current item's info and item's index in data array. |*None*|
