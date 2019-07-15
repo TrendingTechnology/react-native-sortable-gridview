@@ -3,7 +3,7 @@
 </h3>
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/qsw8xRC">
+  <img alt="Final" src="https://i.imgur.com/soEs2tY.gif">
 </p>
 
 # react-native-sortable-gridview
@@ -21,7 +21,7 @@ yarn add react-native-sortable-gridview
 ### Default
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/qsw8xRC">
+  <img alt="Default" src="https://i.imgur.com/qsw8xRC.gif">
 </p>
 
 ```javascript
@@ -64,7 +64,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Custom Layout
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/eVPDtcW">
+  <img alt="Custom Layout" src="https://i.imgur.com/eVPDtcW.gif">
 </p>
 
 ```javascript
@@ -107,11 +107,11 @@ import SortableGridView from 'react-native-sortable-gridview'
 <div>
   <div style="display: inline-block">
     <p align="center">sensitivity 500 miliseconds</p>
-    <img alt="Issue Stats" src="https://imgur.com/4ggqkTw">
+    <img alt="Custom sensitivity" src="https://i.imgur.com/4ggqkTw.gif">
   </div>
   <div style="display: inline-block">
   <p align="center">sensitivity 150 miliseconds (Default)</p>
-    <img alt="Issue Stats" src="https://imgur.com/qsw8xRC">
+    <img alt="Custom sensitivity" src="https://i.imgur.com/qsw8xRC.gif">
   </div>
 </div>
 
@@ -150,7 +150,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Change selectAnimation and selectStyle
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/2qhOjkC">
+  <img alt="Change selectAnimation and selectStyle" src="https://i.imgur.com/2qhOjkC.gif">
 </p>
 
 ```javascript
@@ -198,7 +198,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Custom customAnimation
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/XWPxxpO">
+  <img alt="Custom customAnimation" src="https://i.imgur.com/XWPxxpO.gif">
 </p>
 
 ```javascript
@@ -259,7 +259,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Item cover layout
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/HvEKphi">
+  <img alt="Item cover layout" src="https://i.imgur.com/HvEKphi.gif">
 </p>
 
 ```javascript
@@ -309,7 +309,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Lock item layout
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/hflGLWJ">
+  <img alt="Lock item layout" src="https://i.imgur.com/hflGLWJ.gif">
 </p>
 
 ```javascript
@@ -371,7 +371,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Lock item cover layout
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/PoRWMxv">
+  <img alt="Lock item cover layout" src="https://i.imgur.com/PoRWMxv.gif">
 </p>
 
 ```javascript
@@ -446,7 +446,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Final example
 
 <p align="center">
-  <img alt="Issue Stats" src="https://imgur.com/soEs2tY">
+  <img alt="Final example" src="https://i.imgur.com/soEs2tY.gif">
 </p>
 
 ```javascript
