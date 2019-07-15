@@ -3,7 +3,7 @@
 </h3>
 
 <p align="center">
-  <img alt="Final" src="https://i.imgur.com/soEs2tY.gif">
+  <img width="250" alt="Final" src="https://i.imgur.com/soEs2tY.gif">
 </p>
 
 # react-native-sortable-gridview
@@ -21,7 +21,7 @@ yarn add react-native-sortable-gridview
 ### Default
 
 <p align="center">
-  <img alt="Default" src="https://i.imgur.com/qsw8xRC.gif">
+  <img width="250" alt="Default" src="https://i.imgur.com/qsw8xRC.gif">
 </p>
 
 ```javascript
@@ -64,7 +64,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Custom Layout
 
 <p align="center">
-  <img alt="Custom Layout" src="https://i.imgur.com/eVPDtcW.gif">
+  <img width="250" alt="Custom Layout" src="https://i.imgur.com/eVPDtcW.gif">
 </p>
 
 ```javascript
@@ -82,8 +82,10 @@ import SortableGridView from 'react-native-sortable-gridview'
   numPerRow={4} // let each row has four items. Default is 3
   aspectRatio={1.2} // let height = width * 1.2. Default is 1
   gapWidth={8} // let the gap between items become to 8. Default is 16
-  paddingVertical={8} // let container's paddingVertical become to 8. Default is 16
-  paddingHorizontal={8} // let container's paddingHorizontal become to 8. Default is 16
+  paddingTop={8} // let container's paddingTop become to 8. Default is 16
+  paddingBottom={8} // let container's paddingBottom become to 8. Default is 16
+  paddingLeft={8} // let container's paddingLeft become to 8. Default is 16
+  paddingRight={8} // let container's paddingRight become to 8. Default is 16
   onDragStart={() => {
     console.log('CustomLayout onDragStart');
   }}
@@ -104,16 +106,16 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Custom sensitivity
 
-<div>
-  <div style="display: inline-block">
-    <p align="center">sensitivity 500 miliseconds</p>
-    <img alt="Custom sensitivity" src="https://i.imgur.com/4ggqkTw.gif">
-  </div>
-  <div style="display: inline-block">
-  <p align="center">sensitivity 150 miliseconds (Default)</p>
-    <img alt="Custom sensitivity" src="https://i.imgur.com/qsw8xRC.gif">
-  </div>
-</div>
+
+<p align="center">sensitivity 500 miliseconds</p>
+<p align="center">
+  <img width="250" alt="Custom sensitivity" src="https://i.imgur.com/4ggqkTw.gif">
+</p>
+<p align="center">sensitivity 150 miliseconds (Default)</p>
+<p align="center">
+  <img width="250" alt="Custom sensitivity" src="https://i.imgur.com/qsw8xRC.gif">
+</p>
+
 
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
@@ -150,7 +152,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Change selectAnimation and selectStyle
 
 <p align="center">
-  <img alt="Change selectAnimation and selectStyle" src="https://i.imgur.com/2qhOjkC.gif">
+  <img width="250" alt="Change selectAnimation and selectStyle" src="https://i.imgur.com/2qhOjkC.gif">
 </p>
 
 ```javascript
@@ -198,7 +200,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Custom customAnimation
 
 <p align="center">
-  <img alt="Custom customAnimation" src="https://i.imgur.com/XWPxxpO.gif">
+  <img width="250" alt="Custom customAnimation" src="https://i.imgur.com/XWPxxpO.gif">
 </p>
 
 ```javascript
@@ -259,7 +261,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Item cover layout
 
 <p align="center">
-  <img alt="Item cover layout" src="https://i.imgur.com/HvEKphi.gif">
+  <img width="250" alt="Item cover layout" src="https://i.imgur.com/HvEKphi.gif">
 </p>
 
 ```javascript
@@ -309,7 +311,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Lock item layout
 
 <p align="center">
-  <img alt="Lock item layout" src="https://i.imgur.com/hflGLWJ.gif">
+  <img width="250" alt="Lock item layout" src="https://i.imgur.com/hflGLWJ.gif">
 </p>
 
 ```javascript
@@ -371,7 +373,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Lock item cover layout
 
 <p align="center">
-  <img alt="Lock item cover layout" src="https://i.imgur.com/PoRWMxv.gif">
+  <img width="250" alt="Lock item cover layout" src="https://i.imgur.com/PoRWMxv.gif">
 </p>
 
 ```javascript
@@ -446,7 +448,7 @@ import SortableGridView from 'react-native-sortable-gridview'
 ### Final example
 
 <p align="center">
-  <img alt="Final example" src="https://i.imgur.com/soEs2tY.gif">
+  <img width="250" alt="Final example" src="https://i.imgur.com/soEs2tY.gif">
 </p>
 
 ```javascript

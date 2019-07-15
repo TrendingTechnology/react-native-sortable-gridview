@@ -26,8 +26,10 @@ const CustomLayout = () => {
         numPerRow={4}
         aspectRatio={1.2}
         gapWidth={8}
-        paddingVertical={8}
-        paddingHorizontal={8}
+        paddingTop={8}
+        paddingBottom={8}
+        paddingLeft={8}
+        paddingRight={8}
         onDragStart={() => {
           console.log('CustomLayout onDragStart');
         }}
