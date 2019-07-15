@@ -45,8 +45,12 @@ export default class SortableGridview extends Component {
     numPerRow: this.props.numPerRow || numPerRow,
     aspectRatio: this.props.aspectRatio || aspectRatio, // (height / width)
     gapWidth: this.props.gapWidth || gapWidth,
-    paddingVertical: this.props.paddingVertical || paddingVertical,
-    paddingHorizontal: this.props.paddingHorizontal || paddingHorizontal,
+    // paddingVertical: this.props.paddingVertical || paddingVertical,
+    // paddingHorizontal: this.props.paddingHorizontal || paddingHorizontal,
+    paddingTop: this.props.paddingTop || paddingVertical,
+    paddingBottom: this.props.paddingBottom || paddingVertical,
+    paddingLeft: this.props.paddingLeft || paddingHorizontal,
+    paddingRight: this.props.paddingRight || paddingHorizontal,
     selectStyle: this.props.selectStyle || selectStyle,
     sensitivity: this.props.sensitivity || sensitivity,
     selectAnimation: this.props.selectAnimation || selectAnimation, // scale/shake
@@ -94,6 +98,9 @@ export default class SortableGridview extends Component {
       onPanResponderGrant: this.onActiveBlockIsSet(this.onStartDrag),
       onPanResponderMove: this.onActiveBlockIsSet(this.onMoveBlock),
       onPanResponderRelease: this.onActiveBlockIsSet(this.onReleaseBlock)
+      // onPanResponderGrant: this.onStartDrag,
+      // onPanResponderMove: this.onMoveBlock,
+      // onPanResponderRelease: this.onReleaseBlock,
     });
   }
 
@@ -103,8 +110,10 @@ export default class SortableGridview extends Component {
       nextProps.numPerRow !== this.props.numPerRow ||
       nextProps.aspectRatio !== this.props.aspectRatio ||
       nextProps.gapWidth !== this.props.gapWidth ||
-      nextProps.paddingVertical !== this.props.paddingVertical ||
-      nextProps.paddingHorizontal !== this.props.paddingHorizontal ||
+      nextProps.paddingTop !== this.props.paddingTop ||
+      nextProps.paddingBottom !== this.props.paddingBottom ||
+      nextProps.paddingLeft !== this.props.paddingLeft ||
+      nextProps.paddingRight !== this.props.paddingRight ||
       nextProps.selectStyle !== this.props.selectStyle ||
       nextProps.sensitivity !== this.props.sensitivity
     ) {
@@ -128,8 +137,10 @@ export default class SortableGridview extends Component {
         numPerRow: nextProps.numPerRow || this.state.numPerRow,
         aspectRatio: nextProps.aspectRatio || this.state.aspectRatio,
         gapWidth: nextProps.gapWidth || this.state.gapWidth,
-        paddingVertical: nextProps.paddingVertical || this.state.paddingVertical,
-        paddingHorizontal: nextProps.paddingHorizontal || this.state.paddingHorizontal,
+        paddingTop: nextProps.paddingTop || this.state.paddingTop,
+        paddingBottom: nextProps.paddingBottom || this.state.paddingBottom,
+        paddingLeft: nextProps.paddingLeft || this.state.paddingLeft,
+        paddingRight: nextProps.paddingRight || this.state.paddingRight,
         selectStyle: nextProps.selectStyle || this.state.selectStyle,
         sensitivity: nextProps.sensitivity || this.state.sensitivity,
       }, () => {
@@ -155,6 +166,9 @@ export default class SortableGridview extends Component {
   };
 
   onStartDrag = (evt, gestureState) => {
+    // if (!this.currentAnchor) {
+    //   return;
+    // }
     this.tempX = this.positions[this.positionIndex].x
     this.tempY = this.positions[this.positionIndex].y
   };
@@ -169,9 +183,9 @@ export default class SortableGridview extends Component {
 
   onReleaseBlock = (evt, gestureState) => {
     this.clearTimer();
-    const { dx, dy, moveX, moveY, vx, vy , x0, y0 } = gestureState;
+    // const { dx, dy, moveX, moveY, vx, vy , x0, y0 } = gestureState;
 
-    this.panCapture = false;
+    
 
     Animated.parallel([
       Animated.timing(
@@ -196,12 +210,17 @@ export default class SortableGridview extends Component {
         this.props.onDragRelease && this.props.onDragRelease(this.data);
         this.positionIndex = null;
         this.currentAnchor = null;
+        this.caluing = false;
+        this.panCapture = false;
       });
       
     });
   };
 
   _caluIndex = (x, y) => {
+    if (this.caluing) {
+      return;
+    }
     this.data = this.data || [...this.state.data];
     let centerX = (x + this.state.perWidth / 2);
     let centerY = (y + this.state.perHeight / 2);
@@ -220,6 +239,7 @@ export default class SortableGridview extends Component {
     let index = columNum + rowNum * this.state.numPerRow;
     index = (index > this.state.data.length - 1) ? this.state.data.length - 1 : index
     if (this.positionIndex === index) {
+      this.caluing = false;
       return;
     }
     let newIndex;
@@ -231,6 +251,7 @@ export default class SortableGridview extends Component {
       this.data.splice(index, 0, moveItem[0]);
       this.animateArray.splice(index, 0, animate);
       newIndex = index;
+      
     } else if (index < this.positionIndex) {
       const moveItem = this.data.splice(this.positionIndex, 1);
       const animate = this.animateArray.splice(this.positionIndex, 1)[0];
@@ -251,7 +272,7 @@ export default class SortableGridview extends Component {
               x: this.positions[index].x,
               y: this.positions[index].y,
             },
-            duration: 250,
+            duration: 150,
           },
         )
       )
@@ -259,15 +280,17 @@ export default class SortableGridview extends Component {
     })
     this.positionIndex = index;
 
-    Animated.parallel(parallel).start();
+    Animated.parallel(parallel).start(() => {
+      this.caluing = false;
+    });
     
   }
 
   _setContentStyle = (width) => {
-    const { data = [], lockData =[], numPerRow, gapWidth, aspectRatio, paddingHorizontal, paddingVertical } = this.state
+    const { data = [], lockData =[], numPerRow, gapWidth, aspectRatio, paddingLeft, paddingRight, paddingTop, paddingBottom } = this.state
     const allData = [...data, ...lockData];
     const rowCount  = Math.ceil(allData.length / numPerRow);
-    const perWidth = (width - ((numPerRow - 1) * gapWidth) - paddingHorizontal * 2) / numPerRow;
+    const perWidth = (width - ((numPerRow - 1) * gapWidth) - (paddingLeft + paddingRight)) / numPerRow;
     const perHeight = perWidth * aspectRatio;
     const contentHeight = (perHeight * rowCount) + (rowCount - 1) * gapWidth;
     if (this.positions.length !== allData.length) {
@@ -276,8 +299,8 @@ export default class SortableGridview extends Component {
         const row = Math.floor(index / numPerRow);
         const column = index % numPerRow;
         this.positions[index] = {
-          x: paddingHorizontal + perWidth * column + column * gapWidth,
-          y: paddingVertical+ perHeight * row + row * gapWidth,
+          x: paddingLeft + perWidth * column + column * gapWidth,
+          y: paddingTop+ perHeight * row + row * gapWidth,
         }
       });
     }
@@ -289,10 +312,11 @@ export default class SortableGridview extends Component {
       layoutWidth: width,
       rowCount: rowCount - 1,
       contentStyle: {
-        height: contentHeight + paddingVertical * 2,
+        height: contentHeight + (paddingTop + paddingBottom),
         width: '100%',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        overflow: 'hidden',
       },
     });
   }
@@ -312,7 +336,7 @@ export default class SortableGridview extends Component {
       let onSelectScaleAnimation = {}
       let scale = this[`selectAnimation${key}`].interpolate({
         inputRange: [0, .6, 1],
-        outputRange: [1, 1.07, 1.04],
+        outputRange: [1, 1.1, 1.07],
       });
       onSelectScaleAnimation = {
         transform: [{
@@ -359,12 +383,12 @@ export default class SortableGridview extends Component {
   }
 
   render() {
-    const { paddingVertical, paddingHorizontal } = this.state;
+    const { paddingTop, paddingBottom, paddingLeft, paddingRight } = this.state;
     const { contentStyle = {}, style = {}, itemCoverStyle = {}, lockItemCoverStyle = {} } = this.props;
     const allData = [...this.state.data, ...this.state.lockData];
     return (
       <View style={[styles.fullWidth, style]} onLayout={this._containerOnLayout}>
-        <View style={[{paddingVertical, paddingHorizontal}, this.state.contentStyle, contentStyle]}>
+        <View style={[{paddingTop, paddingBottom, paddingLeft, paddingRight}, this.state.contentStyle, contentStyle]}>
           {this.positions && this.positions.length === allData.length &&
             this.state.data.map((item, index) => {
               const selectStyle = this.state.selectIndex === index ? {
@@ -393,7 +417,7 @@ export default class SortableGridview extends Component {
                   ]}
                 >
                   <TouchableWithoutFeedback style={styles.flex}
-                    delayLongPress={200}
+                    // delayLongPress={200}
                     onLongPress={this._onLongPressItems(key, index)}
                     onPress={() => {
                       customTap(item, index);
@@ -426,6 +450,7 @@ export default class SortableGridview extends Component {
                 return null;
               }
               const content = this.props.renderLockItem(item, index);
+              const customTap = content.props.onTap ? content.props.onTap : () => {};
               const key = content.props.uniqueKey || index;
               const x = this.positions[this.state.data.length + index].x;
               const y = this.positions[this.state.data.length + index].y;
@@ -438,11 +463,16 @@ export default class SortableGridview extends Component {
                     {left: x, top: y}
                   ]}
                 >
-                  <View style={styles.flex}>
+                  <TouchableWithoutFeedback
+                    style={styles.flex}
+                    onPress={() => {
+                      customTap(item, index);
+                    }}
+                  >
                     <View style={styles.fullScreen}>
                       {content}
                     </View>
-                  </View>
+                  </TouchableWithoutFeedback>
                 </Animated.View>,
                 this.props.renderLockItemCover && (
                   <Animated.View

@@ -1,9 +1,9 @@
 <h3 align="center" style="margin-bottom: 21px;">
-  React sortable grid view
+  React Native sortable grid view
 </h3>
 
 <p align="center">
-  <img alt="Issue Stats" src="">
+  <img alt="Issue Stats" src="https://imgur.com/qsw8xRC">
 </p>
 
 # react-native-sortable-gridview
@@ -20,26 +20,39 @@ yarn add react-native-sortable-gridview
 
 ### Default
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/qsw8xRC">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('Default onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('Default onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View
+        uniqueKey={item.name} // Important! Should add this props!!!
+        onTap={() => {
+          Alert.alert(`On Tap ${item.name}!`);
+        }}
+        style={[styles.item, {backgroundColor: item.backgroundColor}]}
+      >
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
@@ -50,31 +63,37 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Custom Layout
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/eVPDtcW">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
-
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
   numPerRow={4} // let each row has four items. Default is 3
   aspectRatio={1.2} // let height = width * 1.2. Default is 1
   gapWidth={8} // let the gap between items become to 8. Default is 16
   paddingVertical={8} // let container's paddingVertical become to 8. Default is 16
   paddingHorizontal={8} // let container's paddingHorizontal become to 8. Default is 16
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('CustomLayout onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('CustomLayout onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View uniqueKey={item.name} style={[styles.item, {backgroundColor: item.backgroundColor}]}>
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
@@ -85,27 +104,41 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Custom sensitivity
 
+<div>
+  <div style="display: inline-block">
+    <p align="center">sensitivity 500 miliseconds</p>
+    <img alt="Issue Stats" src="https://imgur.com/4ggqkTw">
+  </div>
+  <div style="display: inline-block">
+  <p align="center">sensitivity 150 miliseconds (Default)</p>
+    <img alt="Issue Stats" src="https://imgur.com/qsw8xRC">
+  </div>
+</div>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
-  sensitivity={500}
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
+  sensitivity={500} // default 150(miliseconds)
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('CustomSensitivity onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('CustomSensitivity onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View uniqueKey={item.name} style={[styles.item, {backgroundColor: item.backgroundColor}]}>
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
@@ -116,30 +149,44 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Change selectAnimation and selectStyle
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/2qhOjkC">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
   selectAnimation="shake" // scale, shake, none. default is scale
   selectStyle={{
-    backgroundColor: 'green',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.84,
+    elevation: 5,
   }}
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('ChangeSelectAnimationSelectStyle onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('ChangeSelectAnimationSelectStyle onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View uniqueKey={item.name} style={[styles.item, {backgroundColor: item.backgroundColor}]}>
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
@@ -150,50 +197,57 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Custom customAnimation
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/XWPxxpO">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
-  customAnimation = {
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
+  customAnimation={{
     startTimingOption: {
       toValue: 1,
-      duration: 300,
+      duration: 500,
       easing: Easing.ease,
     },
     endTimingOption: {
       toValue: 0,
-      duration: 150,
+      duration: 0,
     },
     style: (animation) => {
       let onSelectRotateAnimation = {}
-      let scale = animation.interpolate({
-        inputRange: [0, .6, 1], // only 0 to 1
-        outputRange: ['15deg', '-30deg', '90deg'],
+      let rotate = animation.interpolate({ // should set interpolate to animation
+        inputRange: [0, .4, .6, 1], // only 0 to 1
+        outputRange: ['0deg', '-15deg', '-30deg', '360deg'],
       });
       onSelectRotateAnimation = {
         transform: [{
-          scale: scale,
+          rotate: rotate,
         }],
       }
       return onSelectRotateAnimation;
     }
-  }
+  }}
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('CustomAnimation onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('CustomAnimation onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View uniqueKey={item.name} style={[styles.item, {backgroundColor: item.backgroundColor}]}>
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
@@ -204,36 +258,46 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Item cover layout
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/HvEKphi">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('ItemCoverLayout onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('ItemCoverLayout onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View uniqueKey={item.name} style={[styles.item, {backgroundColor: item.backgroundColor}]}>
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
-
   itemCoverStyle={{marginTop: -8, marginLeft: -8}}
-
   renderItemCover={(item, index) => {
     return (
-      <TouchableOpacity style={{backgroundColor: 'blue'}}>
-        <Text>{item}</Text>
+      <TouchableOpacity
+        style={styles.cover}
+        onPress={() => {
+          Alert.alert(`On Press ${item.name} Cover!`);
+        }}
+      >
+        <Text style={{color: item.backgroundColor}}>{item.name} cover</Text>
       </TouchableOpacity>
     )
   }}
@@ -244,36 +308,58 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Lock item layout
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/hflGLWJ">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
-  lockData={[10, 11]}
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
+  lockData={[
+    {name: 'lock box1'},
+    {name: 'lock box2'},
+    {name: 'lock box3'},
+    {name: 'lock box4'},
+  ]}
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('LockItemLayout onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('LockItemLayout onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View
+        uniqueKey={item.name}
+        style={[styles.item, {backgroundColor: item.backgroundColor}]}
+        onTap={() => {
+          Alert.alert(`On Tap ${item.name}!`);
+        }}
+      >
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
   renderLockItem={(item, index) => {
     return (
-      <View uniqueKey={`${item}`} onTap={() => {
-        console.log(index);
-      }}>
-        <Text>{item}</Text>
+      <View
+        uniqueKey={`${item.name}`}
+        style={styles.lockItem}
+        onTap={() => {
+          Alert.alert(`On Tap ${item.name}!`);
+        }}
+      >
+        <Text>{item.name}</Text>
       </View>
     )
   }}
@@ -284,46 +370,71 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Lock item cover layout
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/PoRWMxv">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
 <SortableGridview
-  data={[1, 2, 3, 4, 5]}
-  lockData={[10, 11]}
+  data={[
+    {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+    {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+    {name: 'box3', backgroundColor: '#333', color: '#fff'},
+    {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+    {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+  ]}
+  lockData={[
+    {name: 'lock box1'},
+    {name: 'lock box2'},
+    {name: 'lock box3'},
+    {name: 'lock box4'},
+  ]}
   onDragStart={() => {
-    console.log('onDragStart')
+    console.log('LockItemCoverLayout onDragStart');
   }}
   onDragRelease={(data) => {
-    console.log('onDragRelease')
+    console.log('LockItemCoverLayout onDragRelease', data);
   }}
-
   renderItem={(item, index) => {
     return (
-      <View uniqueKey={item} onTap={(item, index) => {
-        console.log(item, index);
-      }}>
-        <Text>{item}</Text>
+      <View
+        uniqueKey={item.name}
+        style={[styles.item, {backgroundColor: item.backgroundColor}]}
+        onTap={() => {
+          Alert.alert(`On Tap ${item.name}!`);
+        }}
+      >
+        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
       </View>
     )
   }}
   renderLockItem={(item, index) => {
     return (
-      <View uniqueKey={`${item}`} onTap={() => {
-        console.log(index);
-      }}>
-        <Text>{item}</Text>
+      <View
+        uniqueKey={`${item.name}`}
+        style={styles.lockItem}
+        onTap={() => {
+          Alert.alert(`On Tap ${item.name}!`);
+        }}
+      >
+        <Text>{item.name}</Text>
       </View>
     )
   }}
-
   lockItemCoverStyle={{marginTop: -8, marginLeft: -8}}
-
   renderLockItemCover={(item, index) => {
     return (
-      <TouchableOpacity style={{backgroundColor: 'blue'}}>
-        <Text>{item}</Text>
+      <TouchableOpacity
+        style={styles.cover}
+        onPress={() => {
+          Alert.alert(`On Press ${item.name} Cover!`);
+        }}
+      >
+        <Text style={{color: item.backgroundColor}}>{item.name} cover</Text>
       </TouchableOpacity>
     )
   }}
@@ -334,28 +445,115 @@ import SortableGridView from 'react-native-sortable-gridview'
 
 ### Final example
 
+<p align="center">
+  <img alt="Issue Stats" src="https://imgur.com/soEs2tY">
+</p>
+
 ```javascript
 import SortableGridView from 'react-native-sortable-gridview'
 
 ...
 
-<SortableGridview
-  data={this.props.items}
-  lockData={lockItem}
-  selectAnimation="shake"
-  selectStyle = {{}}
-  onDragStart={() => {
-    this.props.setScrollEnabled(false);
-  }}
-  onDragRelease={(data) => {
-    this.props.setScrollEnabled(true);
-    this.props.sortPictures(data);
-  }}
-  renderItem={this._renderItem}
-  itemCoverStyle={{marginTop: -8, marginLeft: -8}}
-  renderItemCover={this._renderItemCover}
-  renderLockItem={this._renderAdd}
-/>
+class FinalExample extends Component {
+  state = {
+    data: [
+      {name: 'box1', backgroundColor: '#09f', color: '#fff'},
+      {name: 'box2', backgroundColor: '#f60', color: '#fff'},
+      {name: 'box3', backgroundColor: '#333', color: '#fff'},
+      {name: 'box4', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
+      {name: 'box5', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
+    ],
+    newId: 6, // New box's id should never be used.
+  }
+  render() {
+    let lockData = [];
+    if (this.state.data.length < 6) {
+      lockData.push({
+        name: 'Add box',
+      })
+    }
+    return (
+      <View>
+        <Text style={styles.title}>You can add up to 6 box</Text>
+        <SortableGridview
+          data={this.state.data}
+          lockData={lockData}
+          onDragStart={() => {
+            console.log('Default onDragStart');
+          }}
+          onDragRelease={(data) => {
+            console.log('Default onDragRelease', data);
+            this.setState({
+              data,
+            })
+          }}
+          renderItem={(item, index) => {
+            return (
+              <View
+                uniqueKey={item.name}
+                onTap={() => {
+                  Alert.alert(`On Tap ${item.name}!`);
+                }}
+                style={[styles.item, {backgroundColor: item.backgroundColor}]}
+              >
+                <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
+              </View>
+            )
+          }}
+          itemCoverStyle={{marginTop: -8, marginLeft: -8}}
+          renderItemCover={(item, index) => {
+            return (
+              <TouchableOpacity
+                style={styles.delete}
+                onPress={() => {
+                  let data = [...this.state.data];
+                  data.splice(index, 1);
+                  this.setState({
+                    data,
+                  })
+                }}
+              >
+                <Text style={styles.deleteText}>Delete</Text>
+              </TouchableOpacity>
+            )
+          }}
+          renderLockItem={(item, index) => {
+            return (
+              <View
+                uniqueKey={`${item.name}`}
+                style={styles.lockItem}
+                onTap={() => {
+                  Alert.alert(
+                    'Add Picture?',
+                    'Click Yes to append picture to array!',
+                    [
+                      {text: 'Cancel'},
+                      {text: 'OK', onPress: () => {
+                        let data = [...this.state.data];
+                        const randomColor = `#rgba(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, 1)`;
+                        data.push({
+                          name: `box${this.state.newId}`,
+                          backgroundColor: randomColor,
+                          color: '#fff'
+                        })
+                        this.setState({
+                          data,
+                          newId: this.state.newId + 1,
+                        })
+                      }},
+                    ]
+                  )
+                }}
+              >
+                <Text style={styles.add}>{item.name}＋</Text>
+              </View>
+            )
+          }}
+        />
+      </View>
+    )
+  }
+}
 
 ```
 

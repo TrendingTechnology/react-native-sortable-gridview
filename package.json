@@ -16,7 +16,8 @@
     "sortable",
     "grid",
     "drag",
-    "drog"
+    "drog",
+    "drag-drop"
   ],
   "author": "Kyle Cheng",
   "license": "MIT",
