@@ -7,14 +7,18 @@
 </p>
 
 # react-native-sortable-gridview
+Sortable and editable react native grid view
 
 ## Installation
 
 ```
-npm i react-native-sortable-gridview --save
-or
-yarn add react-native-sortable-gridview
+$ npm i react-native-sortable-gridview --save
 ```
+or
+```
+$ yarn add react-native-sortable-gridview
+```
+
 
 ## Usage
 
