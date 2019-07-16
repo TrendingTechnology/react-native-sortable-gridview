@@ -391,9 +391,7 @@ export default class SortableGridview extends Component {
         <View style={[{paddingTop, paddingBottom, paddingLeft, paddingRight}, this.state.contentStyle, contentStyle]}>
           {this.positions && this.positions.length === allData.length &&
             this.state.data.map((item, index) => {
-              const selectStyle = this.state.selectIndex === index ? {
-                ...this.state.selectStyle,
-              } : {}
+              const selectStyle = this.state.selectIndex === index ? this.state.selectStyle : {}
               const content = this.props.renderItem(item, index);
               const customTap = content.props.onTap ? content.props.onTap : () => {};
               const key = content.props.uniqueKey || index;
@@ -433,7 +431,8 @@ export default class SortableGridview extends Component {
                     key={`sortableViewItemCover${key}`}
                     style={[
                       styles.absolute,
-                      {zIndex: this.state.selectIndex === index ? 10 : 1, ...itemCoverStyle, ...selectStyle, ...this._getAnimation(key)},
+                      itemCoverStyle,
+                      {zIndex: this.state.selectIndex === index ? 10 : 1, ...this._getAnimation(key)},
                       // {left: this[`moveAnimate${key}`].x, top: this[`moveAnimate${key}`].y}
                       this[`moveAnimate${key}`].getLayout(),
                     ]}
@@ -479,7 +478,8 @@ export default class SortableGridview extends Component {
                     key={`sortableViewItemCover${key}`}
                     style={[
                       styles.absolute,
-                      {zIndex: this.state.selectIndex === index ? 10 : 1, ...lockItemCoverStyle},
+                      {zIndex: this.state.selectIndex === index ? 10 : 1},
+                      lockItemCoverStyle,
                       {left: x, top: y}
                     ]}
                   >
