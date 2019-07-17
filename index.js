@@ -409,7 +409,7 @@ export default class SortableGridview extends Component {
                   key={`sortableView${key}`}
                   style={[
                     styles.absolute,
-                    {height: this.state.perHeight, width: this.state.perWidth, zIndex: this.state.selectIndex === index ? 10 : 1, ...selectStyle, ...this._getAnimation(key)},
+                    {elevation: this.state.selectIndex === index ? 10 : 1, height: this.state.perHeight, width: this.state.perWidth, zIndex: this.state.selectIndex === index ? 10 : 1, ...selectStyle, ...this._getAnimation(key)},
                     // {left: this[`moveAnimate${key}`].x, top: this[`moveAnimate${key}`].y}
                     this[`moveAnimate${key}`].getLayout(),
                   ]}
@@ -432,7 +432,7 @@ export default class SortableGridview extends Component {
                     style={[
                       styles.absolute,
                       itemCoverStyle,
-                      {zIndex: this.state.selectIndex === index ? 10 : 1, ...this._getAnimation(key)},
+                      {elevation: this.state.selectIndex === index ? 10 : 1, zIndex: this.state.selectIndex === index ? 10 : 1, ...this._getAnimation(key)},
                       // {left: this[`moveAnimate${key}`].x, top: this[`moveAnimate${key}`].y}
                       this[`moveAnimate${key}`].getLayout(),
                     ]}
